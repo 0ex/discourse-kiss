@@ -1,5 +1,17 @@
 # Discourse KISS
 
+[![AGPL](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
+[![issues](https://img.shields.io/github/issues-raw/0ex/discourse-kiss?label=issues)](https://github.com/0ex/discourse-kiss/issues) 
+[
+![last commit](https://img.shields.io/github/last-commit/0ex/discourse-kiss.svg?label=commit)
+![stars](https://img.shields.io/github/stars/0ex/discourse-kiss.svg)
+![tag](https://img.shields.io/github/v/tag/0ex/discourse-kiss)
+](https://github.com/0ex/discourse-kiss)
+[
+![build status](https://img.shields.io/docker/cloud/build/0ex0/discourse-kiss)
+![pulls](https://img.shields.io/docker/pulls/0ex0/discourse-kiss?label=pulls)
+](https://hub.docker.com/r/0ex0/discourse-kiss)
+
 An unofficial container image for [Discourse](https://www.discourse.org/).
 
 This an alternative (simpler and better) way to run discourse.
