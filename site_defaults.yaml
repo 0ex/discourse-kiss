@@ -1,0 +1,8 @@
+# discourse site settings
+# load with 'rake site_settings:import'
+---
+min_password_length: '8'
+min_admin_password_length: '8'
+password_unique_characters: '4'
+default_trust_level: '1'
+default_email_digest_frequency: '1440'
