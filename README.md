@@ -1,14 +1,18 @@
 # Discourse KISS
 
-[![AGPL](https://img.shields.io/badge/license-AGPL-blue.svg)](http://www.gnu.org/licenses/agpl-3.0)
-[![issues](https://img.shields.io/github/issues-raw/0ex/discourse-kiss?label=issues)](https://github.com/0ex/discourse-kiss/issues) 
 [
-![last commit](https://img.shields.io/github/last-commit/0ex/discourse-kiss.svg?label=commit)
+![AGPL](https://img.shields.io/badge/license-AGPL-blue.svg)
+](http://www.gnu.org/licenses/agpl-3.0)
+[
+![issues](https://img.shields.io/github/issues-raw/0ex/discourse-kiss?label=issues)
+](https://github.com/0ex/discourse-kiss/issues) 
+[
+![commit](https://img.shields.io/github/last-commit/0ex/discourse-kiss.svg?label=commit)
 ![stars](https://img.shields.io/github/stars/0ex/discourse-kiss.svg)
 ![tag](https://img.shields.io/github/v/tag/0ex/discourse-kiss)
 ](https://github.com/0ex/discourse-kiss)
 [
-![build status](https://img.shields.io/docker/cloud/build/0ex0/discourse-kiss)
+![build](https://img.shields.io/docker/cloud/build/0ex0/discourse-kiss?label=build)
 ![pulls](https://img.shields.io/docker/pulls/0ex0/discourse-kiss?label=pulls)
 ](https://hub.docker.com/r/0ex0/discourse-kiss)
 
@@ -17,40 +21,49 @@ An unofficial container image for [Discourse](https://www.discourse.org/).
 This an alternative (simpler and better) way to run discourse.
 See the [Related](#Related) section below for a comparison.
 
-## Usage
+## Getting Started
 
-You don't need this repo to use this image, but it has some example configs
-for various methods.
+Choose one of the 3 supported methods.
 
-With podman (most tested):
+### Manually
+
+This image can be used anywhere OCI containers can be used.
+
+1. Prepare dependencies: an OCI container runtime, PostgreSQL, Redis
+1. Optional: Nginx
+1. Create a `discourse.conf` with your hostname, redis and db details.
+1. Start the container.
+- You should map /shared to a persistent volume.
+- Map port 3000 to host port 80 or point your nginx instance to it.
+1. In the container, run:
+
+    bundle exec rake assets:precompile
+    bundle exec rake admin:create
+
+1. Open the mapped port in your browser.
+
+### With Podman
 
     mkdir -p data/sql
-    sudo podman build -t 0ex0/discourse-kiss .
     sudo podman play kube pod.yaml
+    sudo podman exec -it discourse-kiss-app bundle exec assets:precompile
     sudo podman exec -it discourse-kiss-app bundle exec rake admin:create
+    open http://localhost:8014/
+    
+to update the image:
 
-With docker-compose:
+    sudo podman build -t 0ex0/discourse-kiss .
+
+### With docker-compose
 
     docker-compose up
+    docker-compose run app bundle exec rake assets:precompile
     docker-compose run app bundle exec rake admin:create
-
-With plain docker:
-
-1. Create `discourse.conf` and point to your Redis and PostgreSQL instances.
-2. Run:
-
-    docker run --name discourse -p 8013:80 \
-        -v $PWD/discourse.conf:/var/www/discourse/conf/ \
-        0ex/discourse-kiss
-    docker exec -it discourse bundle exec rake admin:create
-
-## Setup
-
-After using one of the methods above you can login:
-
     open http://localhost:8014/
 
-### Relative URL root
+## Maintenance
+
+### Using a relative URL root
 
 The default config is to serve the forum at http://localhost:8014/forum/. This is configurable
 by:
@@ -59,21 +72,30 @@ by:
 - replace all instances of `/forum/` in `nginx.conf` with `/`
 - see [Upstream docs](https://meta.discourse.org/t/subfolder-support-with-docker/30507)
 
-## Maintenance
+### admin tasks
 
-### discourse tools
+misc:
 
     bundle exec script/discourse ...
 
     bundle exec rake --tasks
 
+settings:
+
     bundle exec rake site_settings:export > settings.yml
     bundle exec rake site_settings:import < settings.yml
 
-recompile assets (requires redis and DB):
+upstream docs:
 
-    export RAILS_ENV=production
-    ./bin/bundle exec rake assets:precompile
+- [dev install guide](https://github.com/discourse/discourse/blob/master/docs/DEVELOPER-ADVANCED.md)
+
+### discourse config
+
+- https://github.com/discourse/discourse/tree/master/config
+    - discourse_defaults.conf
+    - site_settings.yml - defaults, but can be set via UI and saved in DB
+    - database.yml - does not seem needed
+- https://edgeryders.eu/t/discourse-admin-manual/6647
 
 ### podman
 
@@ -92,18 +114,11 @@ recompile assets (requires redis and DB):
 - [entrypoint.sh](https://github.com/docker-library/postgres/blob/master/docker-entrypoint.sh).
 - initdb: cannot be run as root
 
-## Notes
-
-- [dev install guide](https://github.com/discourse/discourse/blob/master/docs/DEVELOPER-ADVANCED.md)
-- https://github.com/discourse/discourse/tree/master/config
-    - discourse_defaults.conf
-    - site_settings.yml - defaults, but can be set via UI and saved in DB
-    - database.yml - does not seem needed
-- https://edgeryders.eu/t/discourse-admin-manual/6647
+## Image Notes
 
 webserver
 - Unicorn is a Rack HTTP server to serve Ruby web applications
-- open directly: http://localhost:8013/forum
+- with podman/compose examples, exposed at http://localhost:8013/forum
 
 ## Related
 
@@ -112,11 +127,11 @@ webserver
 [repo](https://github.com/discourse/discourse_docker)
 [image](https://hub.docker.com/r/discourse/base)
 
-Compared to the official method *discourse-light*:
+Compared to the official method *discourse-kiss*:
 
-- a smaller image: XXX vs 1GB
-- works with plain  `docker run`, kubernetes or any standard OCI runtime.
-- it doesn't use a custom "templating" system.
+- --a smaller image: XXX vs 1GB--
+- works with plain any standard OCI runtime, like k8s.
+- doesn't use a custom "templating" system.
 
 ### Bitnami Image
 
