@@ -46,7 +46,7 @@ This image can be used anywhere OCI containers can be used.
 
     mkdir -p data/sql
     sudo podman play kube pod.yaml
-    sudo podman exec -it discourse-kiss-app bundle exec assets:precompile
+    sudo podman exec -it discourse-kiss-app bundle exec rake assets:precompile
     sudo podman exec -it discourse-kiss-app bundle exec rake admin:create
     open http://localhost:8014/
     
