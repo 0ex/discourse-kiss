@@ -1,4 +1,4 @@
-FROM discourse/base:2.0.20200906-2310
+FROM discourse/base:release
 
 WORKDIR /var/www/discourse
 
