@@ -1,5 +1,6 @@
 # discourse site settings
 # load with 'rake site_settings:import'
+# see https://github.com/discourse/discourse/blob/master/config/site_settings.yml
 ---
 min_password_length: '8'
 min_admin_password_length: '8'

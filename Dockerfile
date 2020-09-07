@@ -1,4 +1,4 @@
-FROM discourse/base:2.0.20200724-1815
+FROM discourse/base:2.0.20200906-2310
 
 WORKDIR /var/www/discourse
 
