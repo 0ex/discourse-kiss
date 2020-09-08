@@ -37,8 +37,10 @@ This image can be used anywhere OCI containers can be used.
 - Map port 3000 to host port 80 or point your nginx instance to it.
 1. In the container, run:
 
-    bundle exec rake assets:precompile
-    bundle exec rake admin:create
+```
+bundle exec rake assets:precompile
+bundle exec rake admin:create
+```
 
 1. Open the mapped port in your browser.
 
@@ -77,7 +79,6 @@ by:
 misc:
 
     bundle exec script/discourse ...
-
     bundle exec rake --tasks
 
 settings:
@@ -99,20 +100,26 @@ upstream docs:
 
 ### podman
 
-    podman run -it --pod discourse-kiss alpine
+to start a shell in the pod:
+
+      podman run -it --pod discourse-kiss alpine
 
 ### redis
 
-    docker-compose run redis redis-cli -h redis
-    redis:6379> config set requirepass password123
+to configure the password:
+
+      docker-compose run redis redis-cli -h redis
+      redis:6379> config set requirepass password123
 
 ### postgresql
 
-    docker-compose exec -u 0 postgresql psql -U postgres
-    ALTER USER postgres PASSWORD 'password123'
+shell client:
 
+      docker-compose exec -u 0 postgresql psql -U postgres
+
+reference
 - [entrypoint.sh](https://github.com/docker-library/postgres/blob/master/docker-entrypoint.sh).
-- initdb: cannot be run as root
+- initdb cannot be run as root
 
 ## Image Notes
 
@@ -125,13 +132,14 @@ webserver
 ### Official Launcher
 
 [repo](https://github.com/discourse/discourse_docker)
+/
 [image](https://hub.docker.com/r/discourse/base)
 
 Compared to the official method *discourse-kiss*:
 
-- --a smaller image: XXX vs 1GB--
+- -a smaller image: XXX vs 1GB- (TODO)
 - works with plain any standard OCI runtime, like k8s.
-- doesn't use a custom "templating" system.
+- doesn't require a custom "templating" system
 
 ### Bitnami Image
 

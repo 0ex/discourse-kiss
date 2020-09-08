@@ -1,6 +1,6 @@
 
 VER=$(shell git describe --tags --dirty)
-TAG=0ex0/discourse-kiss
+TAG=0ex0/discourse-kiss:latest
 TAG2=0ex0/discourse-kiss:${VER}
 
 deploy:
