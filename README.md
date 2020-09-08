@@ -52,7 +52,7 @@ This image can be used anywhere OCI containers can be used.
     
 to update the image:
 
-    sudo podman build -t 0ex0/discourse-kiss .
+    sudo podman build -t docker.io/0ex0/discourse-kiss .
 
 ### With docker-compose
 

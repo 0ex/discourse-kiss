@@ -8,12 +8,21 @@ set -ex
 
 cd /var/www/discourse
 
-mkdir -p /shared/{assets,uploads,backups,log}
+mkdir -p /shared/backups
 mkdir -p /shared/tmp/{backups,restores}
 
+mkdir -p /shared/log
 rm -Rf log
 ln -sTf /shared/log log
+
+mkdir -p /shared/assets
 ln -sTf /shared/assets public/assets
+
+mkdir -p /shared/uploads/default
+ln -sTf /shared/assets public/uploads
+
+mkdir -p /shared/plugin
+ln -sTf /shared/plugin plugins/plugin
 
 # for podman - workaround unrecognized hostAliases directive
 getent hosts sql || echo "127.0.0.1 sql redis app" >> /etc/hosts
