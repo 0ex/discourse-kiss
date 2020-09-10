@@ -18,8 +18,8 @@ ln -sTf /shared/log log
 mkdir -p /shared/assets
 ln -sTf /shared/assets public/assets
 
-mkdir -p /shared/uploads/default
-ln -sTf /shared/assets public/uploads
+mkdir -p /shared/uploads/default/{optimized,original}/1X
+ln -sTf /shared/uploads public/uploads
 
 mkdir -p /shared/plugin
 ln -sTf /shared/plugin plugins/plugin
