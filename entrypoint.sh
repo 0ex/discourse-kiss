@@ -21,6 +21,9 @@ ln -sTf /shared/assets public/assets
 mkdir -p /shared/uploads/default/{optimized,original}/1X
 ln -sTf /shared/uploads public/uploads
 
+# FIXME - workaround relative_url_root bug
+ln -sTf . public/forum
+
 mkdir -p /shared/plugin
 ln -sTf /shared/plugin plugins/plugin
 
