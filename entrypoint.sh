@@ -9,7 +9,9 @@ set -ex
 cd /var/www/discourse
 
 mkdir -p /shared/backups
-mkdir -p /shared/tmp/{backups,restores}
+ln -sTf /shared/backups public/backups
+
+# mkdir -p /shared/tmp/{backups,restores}
 
 mkdir -p /shared/log
 rm -Rf log
