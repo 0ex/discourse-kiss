@@ -1,5 +1,5 @@
 
-VER=$(shell git describe --tags --dirty)
+VER=$(shell git describe --tags)
 TAG=0ex0/discourse-kiss:latest
 TAG2=0ex0/discourse-kiss:${VER}
 
